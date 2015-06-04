@@ -44,7 +44,10 @@ Gắn Full Banner
 - (void)interstitialDidReceiveAd:(GADInterstitial *)a{
     [a presentFromRootViewController:self];
 }
-
+- (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error {
+    STAStartAppSDK* sdk = [STAStartAppSDK sharedInstance];
+   [sdk showSplashAd];
+}
 //GAn banner
   AppDelegate *app = [UIApplication sharedApplication].delegate;
     if(app.count%5==0 && app.isPro!=YES)
@@ -59,6 +62,45 @@ Gắn Full Banner
         NSLog(@"Hien quang cao");
     }
     app.count++;
+    
+    
+    
+    Hiện quảng cáo STARTAPP 
+    STAStartAppSDK* sdk = [STAStartAppSDK sharedInstance];
+    sdk.appID = @"204996948";
+    sdk.devID = @"104274168";
+    
+    
+    STASplashPreferences *splashPreferences = [[STASplashPreferences alloc] init];
+    splashPreferences.splashMode = STASplashModeTemplate;
+    [sdk showSplashAdWithPreferences:splashPreferences];
+    splashPreferences.splashTemplateAppName = @"XEM BÓNG ĐÁ";
+    
+    [sdk showSplashAdWithPreferences:splashPreferences];
+
+
+
+Hiện Quảng cáo MobileCore
+
+//MOBILE CORE 
+[MobileCore initWithToken:@"DEVELOPER_HASH"
+                 logLevel:PRODUCTION_LOG_LEVEL
+                  adUnits:@[[NSNumber numberWithInt:AD_UNIT_INTERSTITIAL],[NSNumber numberWithInt:AD_UNIT_STICKEEZ],[NSNumber numberWithInt:AD_UNIT_DIRECT_TO_APP_STORE]]];
+                  
+ https://dashboard.mobilecore.com/#resources/ios/sdk-integration
+
+
+
+MOBILECORE FULLBANNER 
+ [MobileCore showInterstitialFromViewController];
+ 
+ MOBILECORE STICKER
+ 
+  if([MobileCore isStickeeReady]){
+       // [MobileCore setStickeezPosition:xxx];
+        //BOTTOM_LEFT, BOTTOM_RIGHT, MIDDLE_LEFT, MIDDLE_RIGHT, TOP_LEFT, TOP_RIGHT
+       [MobileCore showStickeeFromViewController:self];
+    }
 
 
 
