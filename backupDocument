@@ -1,0 +1,57 @@
+[self listFileAtPath:[self applicationDocumentsDirectory]];
+
+
+
+- (NSString *) applicationDocumentsDirectory
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    return basePath;
+}
+
+-(NSArray *)listFileAtPath: (NSString *) path
+{
+    //-----> LIST ALL FILES <-----//
+    NSLog(@"LISTING ALL FILES FOUND");
+    
+    int count;
+    
+    NSArray *directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
+    //[_arraySource removeAllObjects];
+    for (count = 0; count < (int)[directoryContent count]; count++)
+    {
+        
+        BOOL isDir= NO;
+        
+        NSString *fullPath =[NSString stringWithFormat:@"%@/%@",[self applicationDocumentsDirectory],[directoryContent objectAtIndex:count]];
+        if([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDir] && isDir==YES)
+            [self listFileAtPath:fullPath];
+        
+        NSLog(@"File %d: %@", (count + 1), [directoryContent objectAtIndex:count]);
+        // [_arraySource addObject:[directoryContent objectAtIndex:count]];
+        
+        NSLog(@"%@",[NSString stringWithFormat:@"%@/%@",[self applicationDocumentsDirectory],[directoryContent objectAtIndex:count]]);
+        
+        NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",[self applicationDocumentsDirectory],[directoryContent objectAtIndex:count]]];
+        [self addSkipBackupAttributeToItemAtURL:url];
+    }
+    
+    return directoryContent;
+    
+    
+}
+
+- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
+{
+    assert([[NSFileManager defaultManager] fileExistsAtPath: [URL path]]);
+    
+    NSError *error = nil;
+    BOOL success = [URL setResourceValue: [NSNumber numberWithBool: YES]
+                                  forKey: NSURLIsExcludedFromBackupKey error: &error];
+    if(!success){
+        NSLog(@"Error excluding %@ from backup %@", [URL lastPathComponent], error);
+    }else{
+        NSLog(@"OK");
+    }
+    return success;
+}
