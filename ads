@@ -92,7 +92,7 @@ Hiện Quảng cáo MobileCore
 
 
 MOBILECORE FULLBANNER 
- [MobileCore showInterstitialFromViewController];
+[MobileCore showInterstitialFromViewController:self delegate:self];
  
  MOBILECORE STICKER
  
