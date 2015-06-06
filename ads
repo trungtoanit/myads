@@ -83,7 +83,7 @@ Gắn Full Banner
 Hiện Quảng cáo MobileCore
 
 //MOBILE CORE 
-[MobileCore initWithToken:@"DEVELOPER_HASH"
+[MobileCore initWithToken:@"6JTGGDST77R2NBXXDW7BR22YPYVWU"
                  logLevel:PRODUCTION_LOG_LEVEL
                   adUnits:@[[NSNumber numberWithInt:AD_UNIT_INTERSTITIAL],[NSNumber numberWithInt:AD_UNIT_STICKEEZ],[NSNumber numberWithInt:AD_UNIT_DIRECT_TO_APP_STORE]]];
                   
@@ -92,8 +92,11 @@ Hiện Quảng cáo MobileCore
 
 
 MOBILECORE FULLBANNER 
-[MobileCore showInterstitialFromViewController:self delegate:self];
- 
+
+ - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error {
+    
+   [MobileCore showInterstitialFromViewController:self delegate:self];
+}
  MOBILECORE STICKER
  
   if([MobileCore isStickeeReady]){
