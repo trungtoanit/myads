@@ -65,6 +65,20 @@ Gắn Full Banner
     
     
     
+    
+    Framework cần thêm cho STARTAPP
+ 
+ 
+ CoreTelephony.framework 
+ SystemConfiguration.framework 
+ CoreGraphics.framework 
+ StoreKit.framework 
+ AdSupport.framework 
+ QuartzCore.framework 
+ libz.dylib 
+
+
+
     Hiện quảng cáo STARTAPP 
     STAStartAppSDK* sdk = [STAStartAppSDK sharedInstance];
     sdk.appID = @"204996948";
