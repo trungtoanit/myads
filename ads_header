@@ -1,0 +1,36 @@
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section
+{
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    // return 50;
+    if(app.isPro!=YES)
+        return UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?90:50;
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView
+viewForHeaderInSection:(NSInteger)section
+{
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    if(app.isPro!=YES)
+    {
+        NSLog(@"HIEN BANNER");
+        
+        if(bannerView_==nil)
+        {
+            bannerView_ = [[GADBannerView alloc] initWithAdSize:UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad?kGADAdSizeSmartBannerPortrait: kGADAdSizeBanner];
+            // Specify the ad unit ID.
+            bannerView_.adUnitID = ID_ADMOB_BANER;// @"ca-app-pub-3741044829158211/2015800287";
+            
+            // Let the runtime know which UIViewController to restore after taking
+            // the user wherever the ad goes and add it to the view hierarchy.
+            bannerView_.rootViewController = self;
+            [self.view addSubview:bannerView_];
+            
+            // Initiate a generic request to load it with an ad.
+            [bannerView_ loadRequest:[GADRequest request]];
+        }
+        return  bannerView_;
+    }
+    return nil;
+}
