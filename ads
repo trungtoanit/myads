@@ -14,6 +14,12 @@ GADBannerView *bannerView_;
  
  
  - (void)adViewDidReceiveAd:(GADBannerView *)adView {
+ 
+  AppDelegate *app = [UIApplication sharedApplication].delegate;
+    if(app.isPro==YES)
+        return;
+        
+        
     NSLog(@"adViewDidReceiveAd");
     [self.view bringSubviewToFront:bannerView_];
     
