@@ -1,0 +1,30 @@
+
+
+1. Kéo 2 file StartApp.framework và StartApp.a vào project 
+
+2. Nhúng thư viện 
+ CoreTelephony.framework 
+ SystemConfiguration.framework 
+ CoreGraphics.framework 
+ StoreKit.framework 
+ AdSupport.framework 
+ QuartzCore.framework 
+ libz.dylib 
+
+
+
+3. Vô file Appdelegate.m 
+#import <StartApp/StartApp.h>
+
+
+    STAStartAppSDK* sdk = [STAStartAppSDK sharedInstance];
+    sdk.appID = @"204996948";
+    sdk.devID = @"104274168";
+    
+    
+    STASplashPreferences *splashPreferences = [[STASplashPreferences alloc] init];
+    splashPreferences.splashMode = STASplashModeTemplate;
+    [sdk showSplashAdWithPreferences:splashPreferences];
+    splashPreferences.splashTemplateAppName = @" ";
+    
+    [sdk showSplashAdWithPreferences:splashPreferences];
